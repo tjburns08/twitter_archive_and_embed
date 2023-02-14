@@ -47,11 +47,11 @@ def get_tweets(user, max_tweets, last_date, first_date):
     return df
 
 # A list of twitter handles
-users = pd.read_csv('users.csv')
+users = pd.read_csv('src/users.csv')
 users = users['user'].to_list()
 
 # Here are the existing csv files, previously outputted from this script. The code below adds to them. 
-curr_files = glob.glob('output/*')
+curr_files = glob.glob('data/scraped_tweets/*')
 now = datetime.now()
 now = now.strftime('%Y-%m-%d')
 
@@ -62,7 +62,7 @@ for i in users:
         print('User in curr_files')
 
         # Read in file
-        df_orig = pd.read_csv('output/' + i + '_tweets_scraped.csv', lineterminator='\n')
+        df_orig = pd.read_csv('data/scraped_tweets/' + i + '_tweets_scraped.csv', lineterminator='\n')
         print('df_orig')
         print(df_orig)
 
