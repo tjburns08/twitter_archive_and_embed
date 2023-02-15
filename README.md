@@ -1,5 +1,4 @@
-# Title
-Twitter archive and embed
+# Twitter archive and embed
 
 # Description
 A project that allows the user to pull the entire tweet history of any list of users, embed the tweets in a BERT language model, embed that into a UMAP, cluster the data, annotate the clusters based on keyword extraction, and visualize all of that in an interactive interface.
