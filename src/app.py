@@ -63,6 +63,9 @@ def search_bar(input, text):
 # tmp.csv is the tweet metadata + dimension reduction + clustering script
 df = pd.read_csv('src/tmp.csv', lineterminator='\n')
 
+# Dev
+# df = df[df['sentiment'] > 0.8]
+
 # This is for the per-user dropdown menu initialized later in the code
 users = list(set(df['User']))
 users.append('all_users')
@@ -232,7 +235,7 @@ def update_plot(source_value, year_value, n_clicks, input_value):
     if(source_value == 'all_users'):
         fig = px.scatter(tmp, x = 'umap1', y = 'umap2', hover_data = ['Date', 'Likes', 'Tweet', 'keyword1', 'keyword2', 'keyword3', 'keyword4', 'keyword5'], color = 'User', size = 'Likes', size_max = 50, title = 'Compare user mode')
     else:
-        fig = px.scatter(tmp, x = 'umap1', y = 'umap2', hover_data = ['Date', 'Likes', 'Tweet', 'keyword1', 'keyword2', 'keyword3', 'keyword4', 'keyword5'], color = 'cluster', size = 'Likes', size_max = 50, title = 'Context similarity map of tweets')
+        fig = px.scatter(tmp, x = 'umap1', y = 'umap2', hover_data = ['Date', 'Likes', 'Tweet', 'keyword1', 'keyword2', 'keyword3', 'keyword4', 'keyword5'], color = 'sentiment_label', size = 'Likes', size_max = 50, title = 'Context similarity map of tweets')
     
     # DarkSlateGrey
     fig.update_traces(marker=dict(line=dict(width=0.1,

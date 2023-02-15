@@ -14,6 +14,8 @@ import nltk
 import sklearn.cluster as cluster
 import pandas as pd
 import umap
+from transformers import pipeline
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 users = pd.read_csv('src/users_to_display.csv')['user'].tolist()
 print(users)
@@ -21,7 +23,7 @@ print(users)
 df = []
 for i in users:
     curr = pd.read_feather('data/embedded_tweets/' + i + '_sentence_embeddings.feather')
-    #curr = curr.head(5000)
+    curr = curr.head(5000) # Dev
     df.append(curr)
 
 df = pd.concat(df).reset_index()
@@ -102,4 +104,26 @@ df = df.merge(keywords_df, on = 'cluster', how = 'left') # This messes up the in
 print(df.cluster[1:10])
 print(df.keyword1[1:10])
 
+# Sentiment analysis
+#tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
+#model_path = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
+model_path = "cardiffnlp/twitter-roberta-base-sentiment-latest"
+sentiment_task = pipeline("sentiment-analysis", model=model_path, tokenizer=model_path)
+
+# Same but for the tweets in the df
+count = 0
+sentiment_label = []
+sentiment_score = []
+
+for i in df['Tweet']:
+    count += 1
+    if count % 1000 == 0:
+        print(str(count) + ' tweets processed for senteiment')
+    sentiment_label.append(sentiment_task(i)[0]['label'])
+    sentiment_score.append(sentiment_task(i)[0]['score'])
+
+df['sentiment_label'] = sentiment_label
+df['sentiment_score'] = sentiment_score
+
+# Final output
 df.to_csv('src/tmp.csv', index = False)

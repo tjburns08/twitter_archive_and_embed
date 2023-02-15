@@ -5,8 +5,9 @@ A project that allows the user to pull the entire tweet history of any list of u
 
 # How to use
 1. Clone this repo and install the required python packages in requirements.txt. 
-2. Populate users.csv with specific twitter users you want to scrape and embed.
-3. Run update.sh.
-4. Populate users_to_display.csv with the subset of users you want to visualize. 
-5. Run display.sh. 
-6. Go to the address in your browser outputted from the previous step, where you'll have access to the interactive interface.
+2. Add a data/ folder in the main directory. In that, add two folders: embedded_tweets/ and scraped_tweets/
+3. Populate users.csv with specific twitter users you want to scrape and embed.
+4. Run update.sh.
+5. Populate users_to_display.csv with the subset of users you want to visualize. 
+6. Run display.sh. 
+7. Go to the address in your browser outputted from the previous step, where you'll have access to the interactive interface.
